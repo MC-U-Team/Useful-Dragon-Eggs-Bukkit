@@ -38,8 +38,8 @@ configurations {
 }
 
 dependencies {
-	compile group: "org.spigotmc", name: "spigot-api", version: project.property("apiversion")
-	compile group: "org.spigotmc", name: "spigot", version: project.property("apiversion")
+	compile group: "org.spigotmc", name: "spigot-api", version: config.spigot.version
+	compile group: "org.spigotmc", name: "spigot", version: config.spigot.version
 }
 
 processResources {
