@@ -62,8 +62,8 @@ task extractServerJar(type: Copy) {
 	from {
 		configurations.runtime
 	}
-	include("spigot-" + project.property("apiversion") + ".jar")
-	rename("spigot-" + project.property("apiversion") + ".jar", "server.jar")
+	include("spigot-" + config.spigot.version + ".jar")
+	rename("spigot-" + config.spigot.version + ".jar", "server.jar")
 	into "run"
 }
 
@@ -101,13 +101,13 @@ task buildSpigot(type: JavaExec) {
 		dependsOn = ["cleanSpigotBuild", "downloadBuildTool"]
 	}
 	main = "-jar"
-	args new File(spigotBuildDir, "BuildTools.jar").getAbsolutePath(), "--rev", project.property("apibuildtoolversion")
+	args new File(spigotBuildDir, "BuildTools.jar").getAbsolutePath(), "--rev", config.minecraft.version
 	workingDir = spigotBuildDir
 }
 
 task downloadBuildTool(type: Download) {
 	spigotBuildDir.mkdirs()
-	src project.property("buildtoolurl")
+	src "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"
 	dest new File(spigotBuildDir, "BuildTools.jar")
 }
 
@@ -117,7 +117,7 @@ task cleanSpigotBuild() {
 
 def hasSpigot() {
 	def groupId = "org.spigotmc"
-	def version = project.property("apiversion")
+	def version = config.spigot.version
 	return hasArtifact(groupId, "spigot-api", version) && hasArtifact(groupId, "spigot", version)
 }
 
