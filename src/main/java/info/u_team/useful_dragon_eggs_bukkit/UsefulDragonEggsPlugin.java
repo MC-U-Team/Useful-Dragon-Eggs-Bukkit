@@ -1,6 +1,5 @@
 package info.u_team.useful_dragon_eggs_bukkit;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import info.u_team.useful_dragon_eggs_bukkit.command.DragonEggsCommand;
@@ -10,8 +9,6 @@ public class UsefulDragonEggsPlugin extends JavaPlugin {
 	
 	private static UsefulDragonEggsPlugin instance;
 	
-	private FileConfiguration config;
-	
 	@Override
 	public void onLoad() {
 		instance = this;
@@ -19,9 +16,7 @@ public class UsefulDragonEggsPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		config = getConfig();
-		
-		config.addDefault("bedrockBreaking", true);
+		getConfig().addDefault("bedrockBreaking", true);
 		
 		getServer().getPluginManager().registerEvents(new UsefulDragonEggsFallHandler(), this);
 		getServer().getPluginCommand("dragoneggs").setExecutor(new DragonEggsCommand());

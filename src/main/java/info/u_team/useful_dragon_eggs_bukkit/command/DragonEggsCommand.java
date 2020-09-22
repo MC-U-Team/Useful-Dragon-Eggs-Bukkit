@@ -4,13 +4,16 @@ import java.util.*;
 
 import org.bukkit.command.*;
 
+import info.u_team.useful_dragon_eggs_bukkit.UsefulDragonEggsPlugin;
+
 public class DragonEggsCommand implements TabExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length >= 1 && args[0].equals("bedrock-breaking")) {
 			if (args.length == 1) {
-				sender.sendMessage("Value bedrock-breaking is currently set to: xyz");
+				final boolean bedrockBreaking = UsefulDragonEggsPlugin.getInstance().getConfig().getBoolean("bedrockBreaking");
+				sender.sendMessage("Value bedrock-breaking is currently set to: " + bedrockBreaking);
 				return true;
 			} else if (args.length == 2) {
 				final String argValue = args[1];
@@ -20,7 +23,10 @@ public class DragonEggsCommand implements TabExecutor {
 				
 				if (valueTrue || valueFalse) {
 					final boolean value = valueTrue ? true : false;
-					sender.sendMessage("Value bedrock-breaking is now set to: xyz");
+					UsefulDragonEggsPlugin.getInstance().getConfig().set("bedrockBreaking", value);
+					UsefulDragonEggsPlugin.getInstance().saveConfig();
+					final boolean bedrockBreaking = UsefulDragonEggsPlugin.getInstance().getConfig().getBoolean("bedrockBreaking");
+					sender.sendMessage("Value bedrock-breaking is now set to: " + bedrockBreaking);
 					return true;
 				}
 			}
