@@ -22,7 +22,8 @@ repositories {
 
 group = "info.u-team"
 version = project.property("version")
-sourceCompatibility = "1.8" 
+
+sourceCompatibility = targetCompatibility = "1.8"
 
 configurations {
 	plugin {
