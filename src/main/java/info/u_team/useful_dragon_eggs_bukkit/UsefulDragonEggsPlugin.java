@@ -16,7 +16,9 @@ public class UsefulDragonEggsPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		reloadConfig();
 		getConfig().addDefault("bedrockBreaking", true);
+		saveConfig();
 		
 		getServer().getPluginManager().registerEvents(new UsefulDragonEggsFallHandler(), this);
 		getServer().getPluginCommand("dragoneggs").setExecutor(new DragonEggsCommand());
