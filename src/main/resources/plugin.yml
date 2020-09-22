@@ -6,3 +6,10 @@ api-version: 1.13
 website: https://u-team.info/plugins/usefuldragoneggs
 
 main: info.u_team.useful_dragon_eggs_bukkit.UsefulDragonEggsPlugin
+
+commands:
+  dragoneggs:
+    description: Settings for the Useful Dragon Eggs plugin
+    permission: commands.dragoneggs
+    usage: |
+      /dragoneggs bedrock-breaking <true/false>
