@@ -12,8 +12,12 @@ plugins {
 	id "de.undercouch.download" version "3.1.1"
 }
 
+apply from: "https://gradle-files.u-team.info/load-config.gradle"
+
 apply plugin: "java"
 apply plugin: "eclipse"
+
+loadConfig()
 
 repositories {
 	mavenLocal()
@@ -21,7 +25,8 @@ repositories {
 }
 
 group = "info.u-team"
-version = project.property("version")
+archivesBaseName = "${config.plugin.name}"
+version = "${config.plugin.version}"
 
 sourceCompatibility = targetCompatibility = "1.8"
 
