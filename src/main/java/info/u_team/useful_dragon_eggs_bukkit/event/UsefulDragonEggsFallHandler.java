@@ -8,6 +8,7 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
+import info.u_team.useful_dragon_eggs_bukkit.UsefulDragonEggsPlugin;
 import net.minecraft.server.v1_16_R2.*;
 
 public class UsefulDragonEggsFallHandler implements Listener {
@@ -20,7 +21,9 @@ public class UsefulDragonEggsFallHandler implements Listener {
 			return;
 		}
 		
-		// TODO CONFIG
+		if (!UsefulDragonEggsPlugin.getInstance().getConfig().getBoolean("bedrockBreaking")) {
+			return;
+		}
 		
 		final FallingBlock fallingBlockEntity = (FallingBlock) entity;
 		final Material material = fallingBlockEntity.getBlockData().getMaterial();
