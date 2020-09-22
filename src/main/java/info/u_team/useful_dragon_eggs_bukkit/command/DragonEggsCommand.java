@@ -38,7 +38,7 @@ public class DragonEggsCommand implements TabExecutor {
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {
 			return Arrays.asList("bedrock-breaking");
-		} else if (args.length == 1 && args[0].equals("bedrock-breaking")) {
+		} else if (args.length >= 1 && args[0].equals("bedrock-breaking")) {
 			return Arrays.asList("true", "false");
 		}
 		return null;
