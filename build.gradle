@@ -45,7 +45,7 @@ dependencies {
 processResources {
 	filter ReplaceTokens, tokens: [
 		"spigot-version": config.spigot.version,
-		"plugin-version"   : config.plugin.version
+		"plugin-version": config.plugin.version
 	]
 }
 
