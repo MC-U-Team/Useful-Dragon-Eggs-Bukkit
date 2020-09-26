@@ -17,7 +17,7 @@ public class NmsUtil {
 		CRAFT_WORLD_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftWorld");
 		WORLD_SERVER_CLASS = getNmsClass("net.minecraft.server", "WorldServer");
 		
-		CRAFT_WORLD_METHOD_GET_HANDLE = CRAFT_WORLD_CLASS.getMethod("getHandle");
+		CRAFT_WORLD_METHOD_GET_HANDLE = getNmsMethod(CRAFT_WORLD_CLASS, "getHandle");
 	}
 	
 	public static void WorldServer$areChunksLoadedBetween(World world, Location location) {
