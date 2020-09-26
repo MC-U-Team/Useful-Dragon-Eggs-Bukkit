@@ -36,13 +36,18 @@ public class UsefulDragonEggsFallHandler implements Listener {
 		
 		// TODO do proper nms
 		
+		System.out.println("DRAGON EGG SPAWNED");
+		
 		final WorldServer world = ((CraftWorld) event.getEntity().getWorld()).getHandle();
 		
 		final BlockPosition blockPos = ((CraftEntity) event.getEntity()).getHandle().getChunkCoordinates();
 		
 		if (world.areChunksLoadedBetween(blockPos.b(-32, -32, -32), blockPos.b(32, 32, 32))) {
+			System.out.println("WILL PROCEDE NORMALLY");
 			return;
 		}
+		
+		System.out.println("WILL BREAK BEDROCK");
 		
 		event.setCancelled(true);
 		
