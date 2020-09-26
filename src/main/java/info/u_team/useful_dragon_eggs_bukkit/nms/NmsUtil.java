@@ -1,6 +1,6 @@
 package info.u_team.useful_dragon_eggs_bukkit.nms;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 import org.bukkit.*;
 
@@ -26,6 +26,8 @@ public class NmsUtil {
 		
 		// final WorldServer world = ((CraftWorld) event.getEntity().getWorld()).getHandle();
 		
+		CRAFT_WORLD_METHOD_GET_HANDLE.invoke(obj, args)
+		
 	}
 	
 	private static Class<?> getNmsClass(String basePackage, String subPackage) {
@@ -44,6 +46,15 @@ public class NmsUtil {
 	private static Method getNmsMethod(Class<?> clazz, String method, Class<?>... args) {
 		try {
 			return clazz.getMethod(method, args);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static Object invokeNmsMethod(Method method, Object instance, Object... args) {
+		try {
+			return method.invoke(instance, args);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
