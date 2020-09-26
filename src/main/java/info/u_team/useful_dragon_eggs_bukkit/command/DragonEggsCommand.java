@@ -2,14 +2,17 @@ package info.u_team.useful_dragon_eggs_bukkit.command;
 
 import java.util.*;
 
+import org.bukkit.Location;
 import org.bukkit.command.*;
 
 import info.u_team.useful_dragon_eggs_bukkit.UsefulDragonEggsPlugin;
+import info.u_team.useful_dragon_eggs_bukkit.nms.NmsUtil;
 
 public class DragonEggsCommand implements TabExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		NmsUtil.WorldServer$areChunksLoadedBetween(sender.getServer().getWorlds().get(0), new Location(sender.getServer().getWorlds().get(0), 0, 0, 0));
 		if (args.length >= 1 && args[0].equals("bedrock-breaking")) {
 			if (args.length == 1) {
 				final boolean bedrockBreaking = UsefulDragonEggsPlugin.getInstance().getConfig().getBoolean("bedrockBreaking");
