@@ -25,7 +25,7 @@ public class NmsUtil {
 	
 	static {
 		CRAFT_WORLD_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftWorld");
-		CRAFT_ENTITY_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftEntity");
+		CRAFT_ENTITY_CLASS = getNmsClass("org.bukkit.craftbukkit", "entity.CraftEntity");
 		
 		NMS_WORLD_SERVER_CLASS = getNmsClass("net.minecraft.server", "WorldServer");
 		NMS_ENTITY_CLASS = getNmsClass("net.minecraft.server", "Entity");
@@ -54,6 +54,9 @@ public class NmsUtil {
 		final Object rightPosNms = invokeNmsMethod(NMS_BLOCK_POSITION_METHOD_B, posNms, 32, 32, 32);
 		
 		final boolean chunksLoaded = invokeNmsMethod(NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN, worldNms, leftPosNms, rightPosNms);
+		
+		System.out.println("YES IT WORKS SÄDKLÖ FSDJKLÖFHJSDKLÖFJ");
+		System.out.println(chunksLoaded);
 		
 	}
 	
