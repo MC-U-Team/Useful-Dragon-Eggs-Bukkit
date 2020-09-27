@@ -53,7 +53,7 @@ public class NmsUtil {
 		final Object leftPosNms = invokeNmsMethod(NMS_BLOCK_POSITION_METHOD_B, posNms, -32, -32, -32);
 		final Object rightPosNms = invokeNmsMethod(NMS_BLOCK_POSITION_METHOD_B, posNms, 32, 32, 32);
 		
-		final boolean a = invokeNmsMethod(NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN, worldNms, leftPosNms, rightPosNms);
+		final boolean chunksLoaded = invokeNmsMethod(NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN, worldNms, leftPosNms, rightPosNms);
 		
 	}
 	
