@@ -33,7 +33,7 @@ public class NmsUtil {
 	private static final Method NMS_BLOCK_POSITION_METHOD_GET_Y;
 	private static final Method NMS_BLOCK_POSITION_METHOD_DOWN;
 	private static final Method NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN;
-	private static final Method NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE;
+	private static final Method NMS_WORLD_SERVER_METHOD_SET_TYPE_UPDATE;
 	private static final Method NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA;
 	private static final Method NMS_WORLD_SERVER_METHOD_GET_TYPE;
 	private static final Method NMS_BLOCK_METHOD_GET_BLOCK_DATA;
@@ -65,7 +65,7 @@ public class NmsUtil {
 		NMS_BLOCK_POSITION_METHOD_GET_Y = getNmsMethod(NMS_BLOCK_POSITION_CLASS, "getY");
 		NMS_BLOCK_POSITION_METHOD_DOWN = getNmsMethod(NMS_BLOCK_POSITION_CLASS, "down");
 		NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN = getNmsMethod(NMS_WORLD_SERVER_CLASS, "areChunksLoadedBetween", NMS_BLOCK_POSITION_CLASS, NMS_BLOCK_POSITION_CLASS);
-		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE = getNmsMethod(NMS_WORLD_CLASS, "setTypeAndUpdate", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS);
+		NMS_WORLD_SERVER_METHOD_SET_TYPE_UPDATE = getNmsMethod(NMS_WORLD_CLASS, "setTypeUpdate", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS);
 		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA = getNmsMethod(NMS_WORLD_CLASS, "setTypeAndData", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS, int.class);
 		NMS_WORLD_SERVER_METHOD_GET_TYPE = getNmsMethod(NMS_WORLD_CLASS, "getType", NMS_BLOCK_POSITION_CLASS);
 		NMS_BLOCK_METHOD_GET_BLOCK_DATA = getNmsMethod(NMS_BLOCK_CLASS, "getBlockData");
@@ -93,7 +93,7 @@ public class NmsUtil {
 		final Object airBlockNms = getField(NMS_BLOCKS_FIELD_AIR, null);
 		final Object airBlockStateNms = invokeMethod(NMS_BLOCK_METHOD_GET_BLOCK_DATA, airBlockNms);
 		
-		invokeMethod(NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE, worldNms, posNms, airBlockStateNms);
+		invokeMethod(NMS_WORLD_SERVER_METHOD_SET_TYPE_UPDATE, worldNms, posNms, airBlockStateNms);
 		
 		Object fallPosNms;
 		
