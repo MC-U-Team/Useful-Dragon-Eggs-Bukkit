@@ -3,21 +3,13 @@ package info.u_team.useful_dragon_eggs_bukkit.command;
 import java.util.*;
 
 import org.bukkit.command.*;
-import org.bukkit.entity.Player;
 
 import info.u_team.useful_dragon_eggs_bukkit.UsefulDragonEggsPlugin;
-import info.u_team.useful_dragon_eggs_bukkit.nms.NmsUtil;
 
 public class DragonEggsCommand implements TabExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(sender instanceof Player) {
-			final Player player = (Player) sender;
-			NmsUtil.doDragonEggLogic(player.getWorld(), player, () -> {
-				System.out.println("SHOULD DO BEDROCK BREAKING");
-			});
-		}
 		if (args.length >= 1 && args[0].equals("bedrock-breaking")) {
 			if (args.length == 1) {
 				final boolean bedrockBreaking = UsefulDragonEggsPlugin.getInstance().getConfig().getBoolean("bedrockBreaking");
