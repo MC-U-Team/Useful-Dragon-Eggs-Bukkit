@@ -12,6 +12,7 @@ public class NmsUtil {
 	private static final Class<?> CRAFT_WORLD_CLASS;
 	private static final Class<?> CRAFT_ENTITY_CLASS;
 	
+	private static final Class<?> NMS_WORLD_SERVER_CLASS;
 	private static final Class<?> NMS_ENTITY_CLASS;
 	private static final Class<?> NMS_BLOCK_POSITION_CLASS;
 	
@@ -19,13 +20,14 @@ public class NmsUtil {
 	private static final Method CRAFT_ENTITY_METHOD_GET_HANDLE;
 	
 	private static final Method NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES;
-	
 	private static final Method NMS_BLOCK_POSITION_METHOD_B;
+	private static final Method NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN;
 	
 	static {
 		CRAFT_WORLD_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftWorld");
 		CRAFT_ENTITY_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftEntity");
 		
+		NMS_WORLD_SERVER_CLASS = getNmsClass("net.minecraft.server", "WorldServer");
 		NMS_ENTITY_CLASS = getNmsClass("net.minecraft.server", "Entity");
 		NMS_BLOCK_POSITION_CLASS = getNmsClass("net.minecraft.server", "BlockPosition");
 		
@@ -33,8 +35,8 @@ public class NmsUtil {
 		CRAFT_ENTITY_METHOD_GET_HANDLE = getNmsMethod(CRAFT_ENTITY_CLASS, "getHandle");
 		
 		NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES = getNmsMethod(NMS_ENTITY_CLASS, "getChunkCoordinates");
-		
 		NMS_BLOCK_POSITION_METHOD_B = getNmsMethod(NMS_BLOCK_POSITION_CLASS, "b", int.class, int.class, int.class);
+		NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN = getNmsMethod(NMS_WORLD_SERVER_CLASS, "areChunksLoadedBetween", NMS_BLOCK_POSITION_CLASS, NMS_BLOCK_POSITION_CLASS);
 	}
 	
 	public static void WorldServer$areChunksLoadedBetween(World world, Entity entity) {
@@ -50,6 +52,8 @@ public class NmsUtil {
 		
 		final Object leftPosNms = invokeNmsMethod(NMS_BLOCK_POSITION_METHOD_B, posNms, -32, -32, -32);
 		final Object rightPosNms = invokeNmsMethod(NMS_BLOCK_POSITION_METHOD_B, posNms, 32, 32, 32);
+		
+		final boolean a = invokeNmsMethod(NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN, worldNms, leftPosNms, rightPosNms);
 		
 	}
 	
@@ -75,9 +79,10 @@ public class NmsUtil {
 		return null;
 	}
 	
-	private static Object invokeNmsMethod(Method method, Object instance, Object... args) {
+	@SuppressWarnings("unchecked")
+	private static <T extends Object> T invokeNmsMethod(Method method, Object instance, Object... args) {
 		try {
-			return method.invoke(instance, args);
+			return (T) method.invoke(instance, args);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
