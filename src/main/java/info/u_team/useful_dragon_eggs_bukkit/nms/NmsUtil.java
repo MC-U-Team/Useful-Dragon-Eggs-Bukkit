@@ -12,15 +12,23 @@ public class NmsUtil {
 	private static final Class<?> CRAFT_WORLD_CLASS;
 	private static final Class<?> CRAFT_ENTITY_CLASS;
 	
+	private static final Class<?> NMS_ENTITY_CLASS;
+	
 	private static final Method CRAFT_WORLD_METHOD_GET_HANDLE;
 	private static final Method CRAFT_ENTITY_METHOD_GET_HANDLE;
+	
+	private static final Method NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES;
 	
 	static {
 		CRAFT_WORLD_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftWorld");
 		CRAFT_ENTITY_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftEntity");
 		
+		NMS_ENTITY_CLASS = getNmsClass("net.minecraft.server", "Entity");
+		
 		CRAFT_WORLD_METHOD_GET_HANDLE = getNmsMethod(CRAFT_WORLD_CLASS, "getHandle");
 		CRAFT_ENTITY_METHOD_GET_HANDLE = getNmsMethod(CRAFT_ENTITY_CLASS, "getHandle");
+		
+		NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES = getNmsMethod(NMS_ENTITY_CLASS, "getChunkCoordinates");
 	}
 	
 	public static void WorldServer$areChunksLoadedBetween(World world, Entity entity) {
@@ -30,7 +38,9 @@ public class NmsUtil {
 		// final WorldServer world = ((CraftWorld) event.getEntity().getWorld()).getHandle();
 		
 		final Object worldNms = invokeNmsMethod(CRAFT_WORLD_METHOD_GET_HANDLE, world);
-		final Object entitNms = invokeNmsMethod(CRAFT_ENTITY_METHOD_GET_HANDLE, entity);
+		final Object entityNms = invokeNmsMethod(CRAFT_ENTITY_METHOD_GET_HANDLE, entity);
+		
+		final Object posNms = invokeNmsMethod(NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES, entityNms);
 		
 	}
 	
