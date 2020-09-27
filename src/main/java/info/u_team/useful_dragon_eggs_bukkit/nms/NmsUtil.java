@@ -15,6 +15,7 @@ public class NmsUtil {
 	private static final Class<?> NMS_WORLD_SERVER_CLASS;
 	private static final Class<?> NMS_ENTITY_CLASS;
 	private static final Class<?> NMS_BLOCK_POSITION_CLASS;
+	private static final Class<?> NMS_I_BLOCK_DATA_CLASS;
 	
 	private static final Method CRAFT_WORLD_METHOD_GET_HANDLE;
 	private static final Method CRAFT_ENTITY_METHOD_GET_HANDLE;
@@ -22,6 +23,8 @@ public class NmsUtil {
 	private static final Method NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES;
 	private static final Method NMS_BLOCK_POSITION_METHOD_B;
 	private static final Method NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN;
+	private static final Method NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE;
+	private static final Method NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA;
 	
 	static {
 		CRAFT_WORLD_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftWorld");
@@ -30,6 +33,7 @@ public class NmsUtil {
 		NMS_WORLD_SERVER_CLASS = getNmsClass("net.minecraft.server", "WorldServer");
 		NMS_ENTITY_CLASS = getNmsClass("net.minecraft.server", "Entity");
 		NMS_BLOCK_POSITION_CLASS = getNmsClass("net.minecraft.server", "BlockPosition");
+		NMS_I_BLOCK_DATA_CLASS = getNmsClass("net.minecraft.server", "IBlockData");
 		
 		CRAFT_WORLD_METHOD_GET_HANDLE = getNmsMethod(CRAFT_WORLD_CLASS, "getHandle");
 		CRAFT_ENTITY_METHOD_GET_HANDLE = getNmsMethod(CRAFT_ENTITY_CLASS, "getHandle");
@@ -37,6 +41,8 @@ public class NmsUtil {
 		NMS_ENTITY_METHOD_GET_CHUNK_COORDINATES = getNmsMethod(NMS_ENTITY_CLASS, "getChunkCoordinates");
 		NMS_BLOCK_POSITION_METHOD_B = getNmsMethod(NMS_BLOCK_POSITION_CLASS, "b", int.class, int.class, int.class);
 		NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN = getNmsMethod(NMS_WORLD_SERVER_CLASS, "areChunksLoadedBetween", NMS_BLOCK_POSITION_CLASS, NMS_BLOCK_POSITION_CLASS);
+		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE = getNmsMethod(NMS_WORLD_SERVER_CLASS, "setTypeAndUpdate", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS);
+		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA = getNmsMethod(NMS_WORLD_SERVER_CLASS, "setTypeAndData", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS, int.class);
 	}
 	
 	public static void doDragonEggLogic(World world, Entity entity, Runnable callback) {
