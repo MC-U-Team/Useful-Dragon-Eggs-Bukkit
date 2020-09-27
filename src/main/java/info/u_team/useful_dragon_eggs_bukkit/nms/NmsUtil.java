@@ -3,30 +3,34 @@ package info.u_team.useful_dragon_eggs_bukkit.nms;
 import java.lang.reflect.Method;
 
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
 
 public class NmsUtil {
 	
 	public static final String NMS_VERSION = Bukkit.getServer().getClass().getPackage().getName().substring(23);
 	
 	private static final Class<?> CRAFT_WORLD_CLASS;
-	private static final Class<?> WORLD_SERVER_CLASS;
+	private static final Class<?> CRAFT_ENTITY_CLASS;
 	
 	private static final Method CRAFT_WORLD_METHOD_GET_HANDLE;
+	private static final Method CRAFT_ENTITY_METHOD_GET_HANDLE;
 	
 	static {
 		CRAFT_WORLD_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftWorld");
-		WORLD_SERVER_CLASS = getNmsClass("net.minecraft.server", "WorldServer");
+		CRAFT_ENTITY_CLASS = getNmsClass("org.bukkit.craftbukkit", "CraftEntity");
 		
 		CRAFT_WORLD_METHOD_GET_HANDLE = getNmsMethod(CRAFT_WORLD_CLASS, "getHandle");
+		CRAFT_ENTITY_METHOD_GET_HANDLE = getNmsMethod(CRAFT_ENTITY_CLASS, "getHandle");
 	}
 	
-	public static void WorldServer$areChunksLoadedBetween(World world, Location location) {
+	public static void WorldServer$areChunksLoadedBetween(World world, Entity entity) {
 		
 		// Class.forName("org.bukkit.craftbukkit." + NMS_VERSION + ".CraftWorld").getMethod("getHandle");
 		
 		// final WorldServer world = ((CraftWorld) event.getEntity().getWorld()).getHandle();
 		
-		final Object worldServer = invokeNmsMethod(CRAFT_WORLD_METHOD_GET_HANDLE, world);
+		final Object worldNms = invokeNmsMethod(CRAFT_WORLD_METHOD_GET_HANDLE, world);
+		final Object entitNms = invokeNmsMethod(CRAFT_ENTITY_METHOD_GET_HANDLE, entity);
 		
 	}
 	
