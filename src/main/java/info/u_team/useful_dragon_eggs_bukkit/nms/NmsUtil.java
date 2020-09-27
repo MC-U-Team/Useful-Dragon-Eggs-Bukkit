@@ -97,7 +97,7 @@ public class NmsUtil {
 		
 		Object fallPosNms;
 		
-		for (fallPosNms = posNms; (boolean) invokeMethod(NMS_I_WORLD_READER_METHOD_IS_EMPTY, worldNms, fallPosNms) && (boolean) invokeMethod(NMS_BLOCK_FALLING_METHOD_CAN_FALL_THROUGH, null, invokeMethod(NMS_WORLD_SERVER_METHOD_GET_TYPE, worldNms, fallPosNms)) && (int) invokeMethod(NMS_BLOCK_POSITION_METHOD_GET_Y, fallPosNms) > 0; fallPosNms = invokeMethod(NMS_BLOCK_POSITION_METHOD_DOWN, fallPosNms)) {
+		for (fallPosNms = posNms; (boolean) invokeMethod(NMS_I_WORLD_READER_METHOD_IS_EMPTY, worldNms, fallPosNms) && (boolean) invokeMethod(NMS_BLOCK_FALLING_METHOD_CAN_FALL_THROUGH, null, (Object) invokeMethod(NMS_WORLD_SERVER_METHOD_GET_TYPE, worldNms, fallPosNms)) && (int) invokeMethod(NMS_BLOCK_POSITION_METHOD_GET_Y, fallPosNms) > 0; fallPosNms = invokeMethod(NMS_BLOCK_POSITION_METHOD_DOWN, fallPosNms)) {
 		}
 		
 		if ((int) invokeMethod(NMS_BLOCK_POSITION_METHOD_GET_Y, fallPosNms) > 0) {
