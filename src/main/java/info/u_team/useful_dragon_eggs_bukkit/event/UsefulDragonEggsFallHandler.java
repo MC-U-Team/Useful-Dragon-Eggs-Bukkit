@@ -32,29 +32,5 @@ public class UsefulDragonEggsFallHandler implements Listener {
 		// Replicate old lazy chunk behavior
 		
 		NmsUtil.doDragonEggLogic(entity.getWorld(), fallingBlockEntity, () -> event.setCancelled(true));
-		
-		// // TODO do proper nms
-		//
-		// final WorldServer world = ((CraftWorld) event.getEntity().getWorld()).getHandle();
-		//
-		// final BlockPosition blockPos = ((CraftEntity) event.getEntity()).getHandle().getChunkCoordinates();
-		//
-		// if (world.areChunksLoadedBetween(blockPos.b(-32, -32, -32), blockPos.b(32, 32, 32))) {
-		// return;
-		// }
-		//
-		// event.setCancelled(true);
-		//
-		// world.setTypeUpdate(blockPos, Blocks.AIR.getBlockData());
-		//
-		// BlockPosition fallPos;
-		//
-		// for (fallPos = blockPos; world.isEmpty(fallPos) && BlockFalling.canFallThrough(world.getType(fallPos)) &&
-		// fallPos.getY() > 0; fallPos = fallPos.down()) {
-		// }
-		//
-		// if (fallPos.getY() > 0) {
-		// world.setTypeAndData(fallPos, Blocks.DRAGON_EGG.getBlockData(), 2);
-		// }
 	}
 }
