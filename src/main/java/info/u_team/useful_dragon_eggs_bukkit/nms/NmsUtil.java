@@ -13,6 +13,7 @@ public class NmsUtil {
 	private static final Class<?> CRAFT_ENTITY_CLASS;
 	
 	private static final Class<?> NMS_WORLD_SERVER_CLASS;
+	private static final Class<?> NMS_WORLD_CLASS;
 	private static final Class<?> NMS_ENTITY_CLASS;
 	private static final Class<?> NMS_BLOCK_POSITION_CLASS;
 	private static final Class<?> NMS_I_BLOCK_DATA_CLASS;
@@ -44,6 +45,7 @@ public class NmsUtil {
 		CRAFT_ENTITY_CLASS = getNmsClass("org.bukkit.craftbukkit", "entity.CraftEntity");
 		
 		NMS_WORLD_SERVER_CLASS = getNmsClass("net.minecraft.server", "WorldServer");
+		NMS_WORLD_CLASS = getNmsClass("net.minecraft.server", "World");
 		NMS_ENTITY_CLASS = getNmsClass("net.minecraft.server", "Entity");
 		NMS_BLOCK_POSITION_CLASS = getNmsClass("net.minecraft.server", "BlockPosition");
 		NMS_I_BLOCK_DATA_CLASS = getNmsClass("net.minecraft.server", "IBlockData");
@@ -63,9 +65,9 @@ public class NmsUtil {
 		NMS_BLOCK_POSITION_METHOD_GET_Y = getNmsMethod(NMS_BLOCK_POSITION_CLASS, "getY");
 		NMS_BLOCK_POSITION_METHOD_DOWN = getNmsMethod(NMS_BLOCK_POSITION_CLASS, "down");
 		NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN = getNmsMethod(NMS_WORLD_SERVER_CLASS, "areChunksLoadedBetween", NMS_BLOCK_POSITION_CLASS, NMS_BLOCK_POSITION_CLASS);
-		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE = getNmsMethod(NMS_WORLD_SERVER_CLASS, "setTypeAndUpdate", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS);
-		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA = getNmsMethod(NMS_WORLD_SERVER_CLASS, "setTypeAndData", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS, int.class);
-		NMS_WORLD_SERVER_METHOD_GET_TYPE = getNmsMethod(NMS_WORLD_SERVER_CLASS, "getType", NMS_BLOCK_POSITION_CLASS);
+		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_UPDATE = getNmsMethod(NMS_WORLD_CLASS, "setTypeAndUpdate", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS);
+		NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA = getNmsMethod(NMS_WORLD_CLASS, "setTypeAndData", NMS_BLOCK_POSITION_CLASS, NMS_I_BLOCK_DATA_CLASS, int.class);
+		NMS_WORLD_SERVER_METHOD_GET_TYPE = getNmsMethod(NMS_WORLD_CLASS, "getType", NMS_BLOCK_POSITION_CLASS);
 		NMS_BLOCK_METHOD_GET_BLOCK_DATA = getNmsMethod(NMS_BLOCK_CLASS, "getBlockData");
 		NMS_I_WORLD_READER_METHOD_IS_EMPTY = getNmsMethod(NMS_I_WORLD_READER_CLASS, "isEmpty", NMS_BLOCK_POSITION_CLASS);
 		NMS_BLOCK_FALLING_METHOD_CAN_FALL_THROUGH = getNmsMethod(NMS_BLOCK_FALLING_CLASS, "canFallThrough", NMS_I_BLOCK_DATA_CLASS);
