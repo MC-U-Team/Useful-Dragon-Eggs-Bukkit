@@ -40,11 +40,6 @@ public class NmsUtil {
 	}
 	
 	public static void doDragonEggLogic(World world, Entity entity, Runnable callback) {
-		
-		// Class.forName("org.bukkit.craftbukkit." + NMS_VERSION + ".CraftWorld").getMethod("getHandle");
-		
-		// final WorldServer world = ((CraftWorld) event.getEntity().getWorld()).getHandle();
-		
 		final Object worldNms = invokeNmsMethod(CRAFT_WORLD_METHOD_GET_HANDLE, world);
 		final Object entityNms = invokeNmsMethod(CRAFT_ENTITY_METHOD_GET_HANDLE, entity);
 		
