@@ -14,7 +14,9 @@ public class DragonEggsCommand implements TabExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(sender instanceof Player) {
 			final Player player = (Player) sender;
-			NmsUtil.WorldServer$areChunksLoadedBetween(player.getWorld(), player);
+			NmsUtil.doDragonEggLogic(player.getWorld(), player, () -> {
+				System.out.println("SHOULD DO BEDROCK BREAKING");
+			});
 		}
 		if (args.length >= 1 && args[0].equals("bedrock-breaking")) {
 			if (args.length == 1) {

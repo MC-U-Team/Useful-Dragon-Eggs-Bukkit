@@ -39,7 +39,7 @@ public class NmsUtil {
 		NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN = getNmsMethod(NMS_WORLD_SERVER_CLASS, "areChunksLoadedBetween", NMS_BLOCK_POSITION_CLASS, NMS_BLOCK_POSITION_CLASS);
 	}
 	
-	public static void WorldServer$areChunksLoadedBetween(World world, Entity entity) {
+	public static void doDragonEggLogic(World world, Entity entity, Runnable callback) {
 		
 		// Class.forName("org.bukkit.craftbukkit." + NMS_VERSION + ".CraftWorld").getMethod("getHandle");
 		
@@ -55,9 +55,11 @@ public class NmsUtil {
 		
 		final boolean chunksLoaded = invokeNmsMethod(NMS_WORLD_SERVER_METHOD_ARE_CHUNKS_LOADED_IN_BETWEEN, worldNms, leftPosNms, rightPosNms);
 		
-		System.out.println("YES IT WORKS SÄDKLÖ FSDJKLÖFHJSDKLÖFJ");
-		System.out.println(chunksLoaded);
+		if (chunksLoaded) {
+			return;
+		}
 		
+		callback.run();
 	}
 	
 	private static Class<?> getNmsClass(String basePackage, String subPackage) {
