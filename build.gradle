@@ -132,6 +132,12 @@ def hasArtifact(groupId, artifactId, version) {
 	return file.exists()
 }
 
+artifacts {
+	archives jar
+}
+
+signAllJars()
+
 curseforge {
 	afterEvaluate {
 		tasks."curseforge${config.curse.id}".onlyIf {
