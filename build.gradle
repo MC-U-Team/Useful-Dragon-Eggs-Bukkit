@@ -5,6 +5,9 @@ buildscript {
 	repositories {
 		jcenter()
 	}
+	dependencies {
+		classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+	}
 }
 
 plugins {
@@ -16,6 +19,8 @@ apply from: "https://gradle-files.u-team.info/load-config.gradle"
 
 apply plugin: "java"
 apply plugin: "eclipse"
+apply plugin: "com.matthewprenger.cursegradle"
+apply plugin: "maven"
 
 loadConfig()
 
@@ -24,8 +29,8 @@ repositories {
 	mavenCentral()
 }
 
-group = "info.u-team"
-archivesBaseName = "${config.plugin.name}"
+group = "info.u-team.bukkit"
+archivesBaseName = "${config.plugin.name}-bukkit"
 version = "${config.plugin.version}"
 
 sourceCompatibility = targetCompatibility = "1.8"
@@ -125,4 +130,98 @@ def hasArtifact(groupId, artifactId, version) {
 	def localMavenRepo = new File(new File(ant.properties["user.home"] as String), ".m2/repository/")
 	def file = new File(localMavenRepo, groupId.replace(".", "/") + "/" + artifactId + "/" + version + "/")
 	return file.exists()
+}
+
+curseforge {
+	afterEvaluate {
+		tasks."curseforge${config.curse.id}".onlyIf {
+			getValue("token") != null
+		}
+	}
+	
+	tasks.curseforge.dependsOn build
+	
+	apiKey = getValueDefault("token")
+	
+	  project {
+		id = config.curse.id
+		releaseType = config.curse.type
+
+		addGameVersion config.minecraft.version
+		
+		options {
+			forgeGradleIntegration = false
+		}
+		
+		mainArtifact(jar) {
+			  displayName = "${config.curse.display}-${project.version}"
+			  changelogType = "html"
+			  changelog = "<a href=\"" + generateChangelogUrl() + "\">Changelog of ${project.version}</a>"
+		}
+	  }
+}
+
+uploadArchives {
+	onlyIf {
+		getValue("mavenpass") != null
+	}
+
+	tasks.uploadArchives.dependsOn build
+
+	repositories {
+		mavenDeployer {
+			repository(url: "https://repo.u-team.info") {
+				authentication(userName: "maven", password: getValue("mavenpass"))
+			}
+			pom {
+				groupId = project.group
+				artifactId = project.archivesBaseName
+				version = project.version
+				project {
+					name project.archivesBaseName
+					packaging "jar"
+					description "${config.github.name}"
+					url "https://github.com/MC-U-Team/${config.github.name}"
+					scm {
+						url "https://github.com/MC-U-Team/${config.github.name}"
+						connection "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
+						developerConnection "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
+					}
+					issueManagement {
+						system "github"
+						url "https://github.com/MC-U-Team/${config.github.name}/issues"
+					}
+					licenses {
+						license {
+							name "Apache License 2.0"
+							url "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
+							distribution "repo"
+						}
+					}
+
+					developers {
+						developer {
+							name "HyCraftHD"
+						}
+					}
+				}
+				setConfigurations(null) // Prevent all dependencies in the pom file
+			}
+		}
+	}
+}
+
+task uploadBoth {
+	tasks.uploadBoth.dependsOn build
+	tasks.uploadBoth.dependsOn uploadArchives
+	tasks.uploadBoth.dependsOn "curseforge${config.curse.id}"
+	doLast {
+		println "Published both"
+	}
+}
+
+gradle.taskGraph.whenReady {
+	if (gradle.taskGraph.hasTask(":curseforge${config.curse.id}") || gradle.taskGraph.hasTask(":uploadArchives")) {
+		validateBuild()
+	}
 }
