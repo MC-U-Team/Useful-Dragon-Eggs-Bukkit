@@ -1,0 +1,16 @@
+language: java
+jdk: openjdk8
+before_install: chmod +x gradlew
+install:
+  - ./gradlew --refresh-dependencies --no-daemon
+  - ./gradlew --stop
+  
+cache:
+  directories:
+    - $HOME/.m2/
+
+jobs:
+  include:
+    - stage: "build"
+      name: "Build"
+      script: ./gradlew build --no-daemon
