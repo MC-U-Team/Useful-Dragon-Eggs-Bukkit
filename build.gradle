@@ -229,9 +229,3 @@ task uploadBoth {
 		println "Published both"
 	}
 }
-
-gradle.taskGraph.whenReady {
-	if (gradle.taskGraph.hasTask(":curseforge${config.curse.id}") || gradle.taskGraph.hasTask(":uploadArchives")) {
-		validateBuild()
-	}
-}
