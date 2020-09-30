@@ -167,7 +167,6 @@ curseforge {
 		addGameVersion "1.16"
 		addGameVersion "1.15"
 		addGameVersion "1.14"
-		addGameVersion "1.13"
 		
 		options {
 			forgeGradleIntegration = false
