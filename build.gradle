@@ -3,10 +3,11 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
 	repositories {
+		maven { url = "https://repo.u-team.info" }
 		jcenter()
 	}
 	dependencies {
-		classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+		classpath "info.u-team.curse_gradle_uploader:curse_gradle_uploader:1.4.0"
 	}
 }
 
@@ -23,7 +24,7 @@ apply from: "https://gradle-files.u-team.info/changelog.gradle"
 
 apply plugin: "java"
 apply plugin: "eclipse"
-apply plugin: "com.matthewprenger.cursegradle"
+apply plugin: "info.u_team.curse_gradle_uploader"
 apply plugin: "maven"
 
 loadConfig()
@@ -153,31 +154,34 @@ curseforge {
 	
 	apiKey = getValueDefault("token")
 	
-	  project {
+	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-
-		addGameVersion config.minecraft.version
+		
+		addGameVersion "1.16"
 		
 		options {
 			forgeGradleIntegration = false
+			javaVersionAutoDetect = false
+			debug = true
+			apiBaseUrl = "https://dev.bukkit.org"
 		}
 		
 		mainArtifact(jar) {
-			  displayName = "${config.curse.display}-${project.version}"
-			  changelogType = "html"
-			  changelog = "<a href=\"" + generateChangelogUrl() + "\">Changelog of ${project.version}</a>"
+			displayName = "${config.curse.display}-${project.version}"
+			changelogType = "html"
+			changelog = "<a href=\"" + generateChangelogUrl() + "\">Changelog of ${project.version}</a>"
 		}
-	  }
+	}
 }
 
 uploadArchives {
 	onlyIf {
 		getValue("mavenpass") != null
 	}
-
+	
 	tasks.uploadArchives.dependsOn build
-
+	
 	repositories {
 		mavenDeployer {
 			repository(url: "https://repo.u-team.info") {
@@ -208,7 +212,7 @@ uploadArchives {
 							distribution "repo"
 						}
 					}
-
+					
 					developers {
 						developer {
 							name "HyCraftHD"
