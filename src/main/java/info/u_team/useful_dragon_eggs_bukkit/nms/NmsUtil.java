@@ -104,7 +104,7 @@ public class NmsUtil {
 			final Object dragonEggBlockNms = getField(NMS_BLOCKS_FIELD_DRAGON_EGG, null);
 			final Object dragonEggBlockStateNms = invokeMethod(NMS_BLOCK_METHOD_GET_BLOCK_DATA, dragonEggBlockNms);
 			
-			invokeMethod(NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA, worldNms, posNms, dragonEggBlockStateNms, 2);
+			invokeMethod(NMS_WORLD_SERVER_METHOD_SET_TYPE_AND_DATA, worldNms, fallPosNms, dragonEggBlockStateNms, 2);
 		}
 	}
 	
