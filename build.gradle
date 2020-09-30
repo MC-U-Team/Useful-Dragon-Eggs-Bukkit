@@ -166,7 +166,6 @@ curseforge {
 		options {
 			forgeGradleIntegration = false
 			javaVersionAutoDetect = false
-			debug = true
 			apiBaseUrl = "https://dev.bukkit.org"1
 		}
 		
