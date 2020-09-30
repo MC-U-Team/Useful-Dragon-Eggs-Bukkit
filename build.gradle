@@ -20,7 +20,6 @@ apply from: "https://gradle-files.u-team.info/load-config.gradle"
 apply from: "https://gradle-files.u-team.info/project-methods.gradle"
 apply from: "https://gradle-files.u-team.info/sign-jar.gradle"
 apply from: "https://gradle-files.u-team.info/sign-jar.gradle"
-apply from: "https://gradle-files.u-team.info/changelog.gradle"
 
 apply plugin: "java"
 apply plugin: "eclipse"
@@ -135,6 +134,13 @@ def hasArtifact(groupId, artifactId, version) {
 	def localMavenRepo = new File(new File(ant.properties["user.home"] as String), ".m2/repository/")
 	def file = new File(localMavenRepo, groupId.replace(".", "/") + "/" + artifactId + "/" + version + "/")
 	return file.exists()
+}
+
+def generateChangelogUrl() {
+	String url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/CHANGELOG.md"
+	String version = "${project.version}".replace(".", "")
+	String date =new Date().format("yyyy-MM-dd");
+	return url + "#" + version + "---" + date
 }
 
 artifacts {
