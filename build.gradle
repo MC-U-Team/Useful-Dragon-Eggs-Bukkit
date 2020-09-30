@@ -159,12 +159,15 @@ curseforge {
 		releaseType = config.curse.type
 		
 		addGameVersion "1.16"
+		addGameVersion "1.15"
+		addGameVersion "1.14"
+		addGameVersion "1.13"
 		
 		options {
 			forgeGradleIntegration = false
 			javaVersionAutoDetect = false
 			debug = true
-			apiBaseUrl = "https://dev.bukkit.org"
+			apiBaseUrl = "https://dev.bukkit.org"1
 		}
 		
 		mainArtifact(jar) {
