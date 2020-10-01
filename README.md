@@ -3,7 +3,7 @@
 [
 ![Curseforge Downloads](http://cf.way2muchnoise.eu/useful-dragon-eggs.svg)
 ![Curseforge Versions](http://cf.way2muchnoise.eu/versions/useful-dragon-eggs.svg)
-](https://www.curseforge.com/minecraft/mc-mods/useful-dragon-eggs)
+](https://www.curseforge.com/minecraft/bukkit-plugins/useful-dragon-eggs)
 [
 ![Discord](https://img.shields.io/discord/297104769649213441?label=Discord)
 ](https://discordapp.com/invite/QXbWS36)
