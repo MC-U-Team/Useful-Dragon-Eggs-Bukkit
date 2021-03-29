@@ -141,9 +141,24 @@ def generateChangelogUrl() {
 	return url + "#" + version + "---" + date
 }
 
+def normalManifest = {
+	attributes(
+		"Specification-Title": config.plugin.name,
+        "Specification-Vendor": "Team UTeam",
+        "Specification-Version": config.spigot.version,
+		"Built-On": config.spigot.version,
+		"Implementation-Title": config.plugin.name,
+    	"Implementation-Version": project.version,
+		"Implementation-Vendor": "Team UTeam",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+	)
+}
+
 jar {
 	archiveClassifier = ""
 	from "LICENSE"
+	
+	manifest normalManifest
 }
 
 task sourcesJar(type: Jar) {
