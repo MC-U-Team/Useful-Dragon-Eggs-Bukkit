@@ -22,7 +22,7 @@ apply from: "https://gradle-files.u-team.info/sign-jar.gradle"
 apply plugin: "java"
 apply plugin: "eclipse"
 apply plugin: "info.u_team.curse_gradle_uploader"
-apply plugin: "maven"
+apply plugin: "maven-publish"
 
 loadConfig()
 
@@ -220,51 +220,60 @@ curseforge {
 	}
 }
 
-uploadArchives {
+tasks.withType(PublishToMavenRepository) {
 	onlyIf {
 		getValue("mavenpass") != null
 	}
-	
-	tasks.uploadArchives.dependsOn build
+}
+
+publishing {
+	publish.dependsOn build
 	
 	repositories {
-		mavenDeployer {
-			repository(url: "https://repo.u-team.info") {
-				authentication(userName: "maven", password: getValue("mavenpass"))
+		maven {
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = getValue("mavenpass")
 			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+			artifact deobfJar
+			artifact sourcesJar
+			
+			groupId = project.group
+			artifactId = project.archivesBaseName
+			version = project.version
+			
 			pom {
-				groupId = project.group
-				artifactId = project.archivesBaseName
-				version = project.version
-				project {
-					name project.archivesBaseName
-					packaging "jar"
-					description "${config.github.name}"
-					url "https://github.com/MC-U-Team/${config.github.name}"
-					scm {
-						url "https://github.com/MC-U-Team/${config.github.name}"
-						connection "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
-						developerConnection "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
-					}
-					issueManagement {
-						system "github"
-						url "https://github.com/MC-U-Team/${config.github.name}/issues"
-					}
-					licenses {
-						license {
-							name "Apache License 2.0"
-							url "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
-							distribution "repo"
-						}
-					}
-					
-					developers {
-						developer {
-							name "HyCraftHD"
-						}
+				name = project.archivesBaseName
+				description = "${config.github.name}"
+				url = "https://github.com/MC-U-Team/${config.github.name}"
+				scm {
+					url = "https://github.com/MC-U-Team/${config.github.name}"
+					connection = "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
+					developerConnection = "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
+				}
+				
+				issueManagement {
+					system = "github"
+					url = "https://github.com/MC-U-Team/${config.github.name}/issues"
+				}
+				licenses {
+					license {
+						name = "Apache License 2.0"
+						url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
+						distribution = "repo"
 					}
 				}
-				setConfigurations(null) // Prevent all dependencies in the pom file
+				developers {
+					developer {
+						name = "HyCraftHD"
+					}
+				}
 			}
 		}
 	}
@@ -272,7 +281,7 @@ uploadArchives {
 
 task uploadBoth {
 	tasks.uploadBoth.dependsOn build
-	tasks.uploadBoth.dependsOn uploadArchives
+	tasks.uploadBoth.dependsOn publish
 	tasks.uploadBoth.dependsOn "curseforge${config.curse.id}"
 	doLast {
 		println "Published both"
