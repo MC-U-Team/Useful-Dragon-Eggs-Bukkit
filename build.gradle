@@ -18,7 +18,6 @@ plugins {
 apply from: "https://gradle-files.u-team.info/load-config.gradle"
 apply from: "https://gradle-files.u-team.info/project-methods.gradle"
 apply from: "https://gradle-files.u-team.info/sign-jar.gradle"
-apply from: "https://gradle-files.u-team.info/sign-jar.gradle"
 
 apply plugin: "java"
 apply plugin: "eclipse"
