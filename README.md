@@ -50,5 +50,5 @@ dependencies {
 ### Issues
 
 - Please report issues to the [github issues](../../issues).
-- Include your minecraft version, bukkit / spigot version and plugin version.
+- Include your minecraft version, bukkit / spigot / paper version and plugin version.
 - Upload your log on [gist](https://gist.github.com) or [pastebin](https://pastebin.com) and include link in your report.
