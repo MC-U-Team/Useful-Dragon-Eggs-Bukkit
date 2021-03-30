@@ -7,29 +7,25 @@ import info.u_team.useful_dragon_eggs_bukkit.event.UsefulDragonEggsFallHandler;
 
 public class UsefulDragonEggsPlugin extends JavaPlugin {
 	
-	private static UsefulDragonEggsPlugin instance;
+	private static UsefulDragonEggsPlugin INSTANCE;
 	
 	@Override
 	public void onLoad() {
-		instance = this;
+		INSTANCE = this;
 	}
 	
 	@Override
 	public void onEnable() {
-		reloadConfig();
 		getConfig().addDefault("bedrockBreaking", true);
+		getConfig().options().copyDefaults(true);
 		saveConfig();
 		
 		getServer().getPluginManager().registerEvents(new UsefulDragonEggsFallHandler(), this);
 		getServer().getPluginCommand("dragoneggs").setExecutor(new DragonEggsCommand());
 	}
 	
-	@Override
-	public void onDisable() {
-	}
-	
 	public static UsefulDragonEggsPlugin getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 	
 }
