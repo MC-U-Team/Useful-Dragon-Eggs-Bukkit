@@ -79,7 +79,7 @@ task extractServerJar(type: Copy) {
 }
 
 task copyPluginToTestserver(dependsOn: ["build"], type: Copy) {
-	from "${buildDir}/libs"
+	from jar
 	into "run/plugins"
 }
 
