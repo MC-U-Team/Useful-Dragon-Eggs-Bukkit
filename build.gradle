@@ -35,7 +35,11 @@ group = "info.u-team.bukkit"
 archivesBaseName = "${config.plugin.name}-bukkit"
 version = "${config.plugin.version}"
 
-sourceCompatibility = targetCompatibility = "1.8"
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(8)
+	}
+}
 
 configurations {
 	plugin {
