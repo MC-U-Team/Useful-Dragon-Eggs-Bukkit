@@ -2,7 +2,7 @@ name: Useful-Dragon-Eggs
 version: @plugin-version@
 authors: [HyCraftHD]
 description: This mod adds a command to give dragon eggs a use. The command can revert MC-94186 / MC-122524 to give the dragon egg the possibility to break bedrock again.
-api-version: 1.13
+api-version: 1.16
 website: https://u-team.info/plugins/usefuldragoneggs
 
 main: info.u_team.useful_dragon_eggs_bukkit.UsefulDragonEggsPlugin
@@ -13,3 +13,8 @@ commands:
     permission: commands.dragoneggs
     usage: |
       /dragoneggs bedrock-breaking <true/false>
+
+permissions:
+  commands.dragoneggs:
+  description: Allows the usage of the /dragoneggs command
+  default: op
