@@ -16,5 +16,5 @@ commands:
 
 permissions:
   commands.dragoneggs:
-  description: Allows the usage of the /dragoneggs command
-  default: op
+    description: Allows the usage of the /dragoneggs command
+    default: op
