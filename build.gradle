@@ -209,8 +209,6 @@ curseforge {
 		releaseType = config.curse.type
 		
 		addGameVersion "1.16"
-		addGameVersion "1.15"
-		addGameVersion "1.14"
 		
 		options {
 			apiBaseUrl = "https://dev.bukkit.org"
